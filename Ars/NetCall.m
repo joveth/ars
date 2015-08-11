@@ -14,16 +14,18 @@
 @implementation NetCall
 +(void) queryTieWithPageNo:(NSInteger)pageno andCallBack:(CallBack)callback{
     
-    NSString *URI_NEWS = [NSString stringWithFormat:@"%@?page=%ld", @"http://edf.shmtu.edu.cn/news.htm",(long)pageno];
+    NSString *URI_NEWS = @"http://tieba.baidu.com/f?kw=%E9%98%BF%E6%A3%AE%E7%BA%B3";
     NSData *htmlData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:URI_NEWS]];
     
     //NSData *toHtmlData = [self toUTF8:htmlData];
     
     TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:htmlData];
-    NSArray *aArray = [xpathParser searchWithXPathQuery:@"//div[@id='block-system-main']"];
+    NSArray *aArray = [xpathParser searchWithXPathQuery:@"//body"];
     
     if ([aArray count] > 0) {
         TFHppleElement *contentEle = [aArray objectAtIndex:0];
+        NSLog(@"content%@",[contentEle content]);
+        
         NSArray *contentArray = [contentEle searchWithXPathQuery:@"//div[@class='view-content']"];
         NSArray *pageArray = [contentEle searchWithXPathQuery:@"//li[@class='pager-last last']"];
         NSString *page = nil;
@@ -91,6 +93,26 @@
             return;
             
         }
+    }
+    callback(nil);
+}
+
++(void) queryScoredWithWidth:(float)width andCallBack:(StringCallBack)callback{
+    NSString *URI_NEWS = @"http://m.dongqiudi.com/status.html?competition=139&type=trank#";
+    NSData *htmlData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:URI_NEWS]];
+    
+    //NSData *toHtmlData = [self toUTF8:htmlData];
+    
+    TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:htmlData];
+    NSArray *aArray = [xpathParser searchWithXPathQuery:@"//div[@id='match-table']"];
+    if ([aArray count] > 0) {
+        TFHppleElement *contentEle = [aArray objectAtIndex:0];
+        NSString *re =[contentEle content];
+        NSLog(@"ret=%@",re);
+        NSString *ret = [NSString stringWithFormat:@"<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'><meta name='viewport' content='width=%f, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'> </head><body>%@</body></html>",width, [contentEle content]];
+        NSLog(@"ret2=%@",ret);
+        callback(ret);
+        return;
     }
     callback(nil);
 }

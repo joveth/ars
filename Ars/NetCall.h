@@ -14,5 +14,5 @@ typedef void (^ErrorCallBack)(NSInteger code);
 typedef void (^StringCallBack)(NSString *_ret);
 
 +(void) queryTieWithPageNo:(NSInteger)pageno andCallBack:(CallBack)callback;
-
++(void) queryScoredWithWidth:(float)width andCallBack:(StringCallBack)callback;
 @end
