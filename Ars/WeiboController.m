@@ -47,13 +47,12 @@
     
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
-//    [webView stringByEvaluatingJavaScriptFromString:@"var tagHead =document.getElementsByClassName(\"download-wrapper\");"
-//     "tagHead[0].removeChild(0);"];
+
     [SVProgressHUD dismiss];
     [webview.scrollView.header endRefreshing ];
 }
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [SVProgressHUD showErrorWithStatus:@"加载失败了"];
+    [SVProgressHUD dismiss];
     [webview.scrollView.header endRefreshing ];
 }
 

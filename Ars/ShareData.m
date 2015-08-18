@@ -9,8 +9,9 @@
 #import "ShareData.h"
 
 @implementation ShareData
-@synthesize bossBean;
-@synthesize type;
+@synthesize title;
+@synthesize url;
+@synthesize flag;
 static ShareData *instance;
 +(ShareData *)shareInstance{
     if(instance==nil){

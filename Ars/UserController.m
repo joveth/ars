@@ -7,8 +7,12 @@
 //
 
 #import "UserController.h"
+#import "Common.h"
+#import "SKPSMTPMessage.h"
+#import "SVProgressHUD.h"
 
 @interface UserController ()
+@property (weak, nonatomic) IBOutlet UITextView *msgText;
 
 @end
 
@@ -16,85 +20,99 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.backgroundColor=[Common colorWithHexString:@"#e0e0e0"];
+    self.tableView.tableFooterView=[[UIView alloc] init];
+    self.msgText.delegate = self;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+-(void)showSV{
+    dispatch_async(dispatch_get_main_queue(),^ {
+        [SVProgressHUD show];
+    });
 }
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+//secltion head
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *myHeader = [[UIView alloc] init];
+    UILabel *myLabel = [[UILabel alloc] init];
+    [myLabel setFrame:CGRectMake(8, 5, 200, 20)];
+    [myLabel setTag:101];
+    [myLabel setAlpha:0.5];
+    [myLabel setFont: [UIFont fontWithName:@"Arial" size:14]];
+    [myLabel setBackgroundColor:[UIColor clearColor]];
+    [myHeader setBackgroundColor:[Common colorWithHexString:@"#e0e0e0"]];
     
-    // Configure the cell...
-    
-    return cell;
+    switch (section) {
+        case 1:
+            [myLabel setText:[NSString stringWithFormat:@"软件声明"]];
+            break;
+        case 2:
+            [myLabel setText:[NSString stringWithFormat:@"给我留言"]];
+            break;
+        default:
+            [myLabel setText:[NSString stringWithFormat:@" "]];
+            break;
+    }
+    [myHeader addSubview:myLabel];
+    return myHeader;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    if(indexPath.section==3){
+        if([Common isEmptyString:_msgText.text]){
+            return;
+        }else{
+            [_msgText resignFirstResponder];
+            [self showSV];
+            [self sendMsg];
+        }
+    }
+}
+
+
+-(void)sendMsg{
+    SKPSMTPMessage *testMsg = [[SKPSMTPMessage alloc] init];
+    testMsg.fromEmail = @"funny_ba@163.com";
+    testMsg.toEmail = @"funny_ba@163.com";
+    testMsg.bccEmail = @"funny_ba@163.com";
+    testMsg.relayHost = @"smtp.163.com";
+    
+    testMsg.requiresAuth = YES;
+    
+    if (testMsg.requiresAuth) {
+        testMsg.login = @"funny_ba@163.com";
+        testMsg.pass = @"funny_ba@163";
+    }
+    testMsg.wantsSecure = YES;
+    testMsg.subject = @"IOS Arsenal Mail ";
+    testMsg.delegate = self;
+    NSDictionary *plainPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain",kSKPSMTPPartContentTypeKey,
+                               [NSString stringWithCString:[_msgText.text UTF8String] encoding:NSUTF8StringEncoding],kSKPSMTPPartMessageKey,@"8bit",kSKPSMTPPartContentTransferEncodingKey,nil];
+    testMsg.parts = [NSArray arrayWithObjects:plainPart,nil];
+    [testMsg send];
+}
+-(void)messageSent:(SKPSMTPMessage *)message{
+    NSLog(@"%@",message);
+    [SVProgressHUD showSuccessWithStatus:@"感谢您的留言!" ];
+    
+}
+-(void)messageFailed:(SKPSMTPMessage *)message error:(NSError *)error{
+    NSLog(@"%@,err:%@",message,error);
+    [SVProgressHUD showErrorWithStatus:@"亲，发送失败了!"];
+}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]){
+        if([Common isEmptyString:_msgText.text]){
+            return YES;
+        }else{
+            [_msgText resignFirstResponder];
+            [self showSV];
+            [self sendMsg];
+        }
+        return NO;
+    }
     return YES;
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

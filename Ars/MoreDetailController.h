@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface MoreDetailController : UIViewController
+#import "SVProgressHUD.h"
+#import "MJRefresh.h"
+@interface MoreDetailController : UIViewController<UIWebViewDelegate>
 
 @end

@@ -14,6 +14,7 @@
 
 @implementation SinaNewsController{
     UIWebView *webview;
+    UIButton *backBtn;
 }
 
 - (void)viewDidLoad {
@@ -21,8 +22,14 @@
     CGRect frame = self.view.frame;
     frame.size.height-=50;
     webview = [[UIWebView alloc] initWithFrame:frame];
+    backBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, frame.size.height-55, 40, 40)];
+    backBtn.backgroundColor=[UIColor grayColor];
+    [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [self showSV];
     [self.view addSubview:webview];
+    [self.view addSubview:backBtn];
+    [backBtn addTarget:self action:@selector(backTo:) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.hidden=YES;
     webview.delegate = self;
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     [webview loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://sports.sina.cn/?sa=t31d43v17&from=wap"]]];
@@ -36,17 +43,33 @@
         [SVProgressHUD show];
     });
 }
-
+-(IBAction)backTo:(id)sender{
+    if(webview.canGoBack){
+        [webview goBack];
+    }else{
+        backBtn.hidden=YES;
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     [SVProgressHUD dismiss];
+    if(webView.canGoBack){
+        backBtn.hidden=NO;
+    }else{
+        backBtn.hidden=YES;
+    }
     [webview.scrollView.header endRefreshing ];
 }
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [SVProgressHUD showErrorWithStatus:@"加载失败了"];
+    [SVProgressHUD dismiss];
+    if(webView.canGoBack){
+        backBtn.hidden=NO;
+    }else{
+        backBtn.hidden=YES;
+    }
     [webview.scrollView.header endRefreshing ];
 }
 

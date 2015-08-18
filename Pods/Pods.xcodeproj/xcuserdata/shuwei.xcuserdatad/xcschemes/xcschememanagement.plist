@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-skpsmtpmessage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>A451BDC99B6C5265754DE3CC</key>
+		<key>1FFEA38E77F4D92BBC11C297</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DFA1239A6487DC1AE2FC9A9A</key>
+		<key>28E478D5720CE521345F2B67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA115A3E940322FA2424625A</key>
+		<key>4E4157371EA2EA3A6B1C1C17</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC6364F75EA727FE44501C3B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

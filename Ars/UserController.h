@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface UserController : UITableViewController
+#import "SKPSMTPMessage.h"
+@interface UserController : UITableViewController<UITextViewDelegate,SKPSMTPMessageDelegate>
 
 @end

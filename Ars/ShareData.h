@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BossBean.h"
+
 
 @interface ShareData : NSObject
 
-@property(atomic,retain) BossBean *bossBean;
-@property(atomic,retain) NSString *type;
+
+@property(atomic,retain) NSString *title;
+@property(atomic,retain) NSString *url;
+@property(atomic,assign) BOOL flag;
 +(ShareData *) shareInstance;
 @end
