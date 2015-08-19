@@ -55,12 +55,17 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [webView stringByEvaluatingJavaScriptFromString:@"var tagHead =document.getElementsByClassName(\"client_ad_topBanner\");"
+     "if(tagHead!=null&&tagHead.length!=0){tagHead=tagHead[0];tagHead.parentNode.removeChild(tagHead);}"
+     ];
     [SVProgressHUD dismiss];
-    
     [webview.scrollView.header endRefreshing ];
 }
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [SVProgressHUD showErrorWithStatus:@"加载失败了"];
+    [webView stringByEvaluatingJavaScriptFromString:@"var tagHead =document.getElementsByClassName(\"client_ad_topBanner\");"
+     "if(tagHead!=null&&tagHead.length!=0){tagHead=tagHead[0];tagHead.parentNode.removeChild(tagHead);}"
+     ];
+    [SVProgressHUD dismiss];
     [webview.scrollView.header endRefreshing ];
 }
 
