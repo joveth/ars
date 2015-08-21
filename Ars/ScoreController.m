@@ -35,7 +35,7 @@
     webview.delegate = self;
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     //[self loadData];
-    [webview loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.dongqiudi.com/status.html?competition=139&type=trank#"]]];
+    [webview loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.hupu.com/soccer/england/rank/score"]]];
     // 添加下拉刷新控件http://m.dongqiudi.com/status.html?competition=139&type=trank#
     webview.scrollView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [webview reload];
@@ -62,13 +62,13 @@
     
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
-    [webView stringByEvaluatingJavaScriptFromString:@"var tagHead =document.getElementById(\"top\");"
-     "tagHead.parentNode.removeChild(tagHead);"
-     "var temp = document.getElementById(\"header-yuedong\");"
-     "temp.parentNode.removeChild(temp);"
-     "temp = document.getElementById(\"fade\");"
-     "temp.parentNode.removeChild(temp);"
-     "temp = document.getElementsByClassName(\"popup\")[0];temp.parentNode.removeChild(temp); "];
+//    [webView stringByEvaluatingJavaScriptFromString:@"var tagHead =document.getElementById(\"top\");"
+//     "tagHead.parentNode.removeChild(tagHead);"
+//     "var temp = document.getElementById(\"header-yuedong\");"
+//     "temp.parentNode.removeChild(temp);"
+//     "temp = document.getElementById(\"fade\");"
+//     "temp.parentNode.removeChild(temp);"
+//     "temp = document.getElementsByClassName(\"popup\")[0];temp.parentNode.removeChild(temp); "];
     if(webView.canGoBack){
         backBtn.hidden=NO;
     }else{
@@ -80,10 +80,10 @@
     [webview.scrollView.header endRefreshing ];
 }
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [webView stringByEvaluatingJavaScriptFromString:@"var tagHead =document.getElementById(\"top\");"
-     "tagHead.parentNode.removeChild(tagHead);"
-     "var temp = document.getElementById(\"header-yuedong\");"
-     "temp.parentNode.removeChild(temp);"];
+//    [webView stringByEvaluatingJavaScriptFromString:@"var tagHead =document.getElementById(\"top\");"
+//     "tagHead.parentNode.removeChild(tagHead);"
+//     "var temp = document.getElementById(\"header-yuedong\");"
+//     "temp.parentNode.removeChild(temp);"];
     if(webView.canGoBack){
         backBtn.hidden=NO;
     }else{

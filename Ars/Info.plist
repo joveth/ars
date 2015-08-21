@@ -13,7 +13,7 @@
 		<string>icon_120.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>jov.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>com.jov.arsenal</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -44,6 +44,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>CFBundleDisplayName</key>
+	<string>阿森纳吧</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
