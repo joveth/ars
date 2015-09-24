@@ -12,7 +12,7 @@
 #import "XPathQuery.h"
 #import "IGHTMLQuery.h"
 #import "RestKit.h"
-
+#import "TwitterBean.h"
 @interface MainService : NSObject
 typedef void (^CallBack)(NSArray *result);
 typedef void (^CallBackMutable)(NSMutableArray *result);
@@ -22,6 +22,6 @@ typedef void (^CallBackMutAndPage)(NSMutableArray *result,NSInteger total);
 +(void) getImagesWithPageNo:(NSInteger )pageno andSuccess:(CallBackMutable)callback andError:(ErrorCallBack)err;
 +(void) getCartoonWithPageNo:(NSInteger )pageno andSuccess:(CallBackMutable)callback andError:(ErrorCallBack)err;
 +(void) getTwitter:(NSInteger )pageno andSuccess:(CallBackMutable)callback andError:(ErrorCallBack)err;
-
++(NSString *)findName:(NSString *)name;
 
 @end

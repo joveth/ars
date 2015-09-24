@@ -1,5 +1,5 @@
 //
-//  TwitterViewController.h
+//  FacebookViewController.h
 //  Ars
 //
 //  Created by Shuwei on 15/9/24.
@@ -11,7 +11,6 @@
 #import "MainService.h"
 #import "Common.h"
 #import <ChameleonFramework/Chameleon.h>
-#import "TwitterBean.h"
-@interface TwitterViewController : UITableViewController
+@interface FacebookViewController : UITableViewController
 
 @end

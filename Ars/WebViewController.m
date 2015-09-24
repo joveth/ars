@@ -26,10 +26,15 @@
     [self.navigationController.view addSubview:hud];
     hud.labelText = @"加载中...";
     [hud show:YES];
-    NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-    NSString *path = [[NSBundle mainBundle] pathForResource:[ShareData shareInstance].url ofType:@"html"];
-    NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    [webview loadHTMLString:html baseURL:baseURL];
+    if([ShareData shareInstance].flag){
+        [webview loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[ShareData shareInstance].url]]];
+    }else{
+        NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+        NSString *path = [[NSBundle mainBundle] pathForResource:[ShareData shareInstance].url ofType:@"html"];
+        NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        [webview loadHTMLString:html baseURL:baseURL];
+    }
+    
     webview.delegate=self;
 }
 
@@ -39,5 +44,8 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     [hud hide:YES];
 }
-
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    [Common showMessageWithOkButton:@"似乎加载失败了！"];
+    [hud hide:YES];
+}
 @end

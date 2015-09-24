@@ -89,10 +89,24 @@
                 IGXMLNode *node = [arr objectAtIndex:i];
                 NSString *time =[NSString stringWithFormat:@" • %@",[[[node queryWithCSS:@"._timestamp"] firstObject ] text]];
                 NSString *temp = [[[node queryWithCSS:@".TweetTextSize"] firstObject ] text];
+                TwitterBean *bean = [TwitterBean new];
                 temp =[temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
                 temp = [temp stringByAppendingString:time];
-                NSLog(@"temp=%@",temp);
-                [ret addObject:temp];
+                bean.content=temp;
+                IGXMLNode *im =[[node queryWithCSS:@".is-preview"] firstObject];
+                if(im){
+                    NSString *image = [im attribute:@"data-url"];
+                    if(image){
+                        image = [self findName:image];
+                        NSInteger index =[image rangeOfString:@":"].location;
+                        if(index!=NSNotFound){
+                            image = [image substringToIndex:index];
+                            NSLog(@"image=%@",image);
+                        }
+                        bean.image=image;
+                    }
+                }
+                [ret addObject:bean];
             }
         }
         if(callback){
@@ -107,5 +121,12 @@
     @finally {
         
     }
+}
++(NSString *)findName:(NSString *)name{
+    NSRange range = [name rangeOfString:@"/"];
+    if (range.location != NSNotFound) {
+        return [self findName:[name substringFromIndex:range.location+1]];
+    }
+    return name;
 }
 @end

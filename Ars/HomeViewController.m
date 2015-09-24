@@ -229,14 +229,39 @@
                 WebViewController *show = [[WebViewController alloc] init];
                 [ShareData shareInstance].url=@"272";
                 [ShareData shareInstance].title=@"百科之厄齐尔";
+                [ShareData shareInstance].flag=NO;
                 [self.navigationController pushViewController:show animated:YES];
                 break;
             }
             case 5:{
                 TwitterViewController *show = [[TwitterViewController alloc] init];
                 [self.navigationController pushViewController:show animated:YES];
+                break;
             }
-                
+            case 6:{
+                FacebookViewController *show = [[FacebookViewController alloc] init];
+                [self.navigationController pushViewController:show animated:YES];
+                break;
+            }
+            case 7:{
+                break;
+            }
+            case 8:{
+                WebViewController *show = [[WebViewController alloc] init];
+                [ShareData shareInstance].url=@"http://joveth.github.io/ars/index.html";
+                [ShareData shareInstance].title=@"作者手札";
+                [ShareData shareInstance].flag=YES;
+                [self.navigationController pushViewController:show animated:YES];
+                break;
+            }
+            case 9:{
+                break;
+            }
+            case 10:{
+                MessageViewController *show = [[MessageViewController alloc] init];
+                [self.navigationController pushViewController:show animated:YES];
+                break;
+            }
             default:
                 break;
         }

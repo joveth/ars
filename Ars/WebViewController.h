@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ShareData.h"
 #import "MBProgressHUD.h"
+#import "Common.h"
+
 @interface WebViewController : UIViewController<UIWebViewDelegate>
 
 @end

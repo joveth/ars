@@ -14,10 +14,12 @@
 
 @implementation TwitterViewController{
     NSMutableArray *list;
+    NSString *domain;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    domain=@"http://7xlhe5.com1.z0.glb.clouddn.com";
     list=[[NSMutableArray alloc] init];
     self.title=@"齐齐在推特上";
     self.tableView.header =  [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -60,34 +62,58 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellidentifier];
         cell.backgroundColor = [UIColor whiteColor];
         cell.tintColor = [UIColor greenColor];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
     }
-    NSString  * content = [list objectAtIndex:indexPath.row];
-    if(content){
-        cell.textLabel.text =content;
-        cell.textLabel.textColor=[UIColor flatBlackColor];
-        cell.textLabel.numberOfLines=0;
-        cell.textLabel.lineBreakMode=NSLineBreakByWordWrapping;
-        CGSize size=[content sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:16] forKey:NSFontAttributeName]];
+    UIImageView *imageV=(UIImageView*)[cell viewWithTag:1];
+    if(imageV==nil){
+        imageV = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, self.view.frame.size.width-20, 0)];
+        imageV.tag=1;
+        [cell addSubview:imageV];
+    }
+    UILabel *nameLabel =(UILabel*)[cell viewWithTag:2];
+    if(nameLabel==nil){
+        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, self.view.frame.size.width-20, 22)];
+        nameLabel.lineBreakMode=NSLineBreakByWordWrapping;
+        nameLabel.numberOfLines=0;
+        nameLabel.tag=2;
+        nameLabel.textColor=[UIColor flatBlackColor];
+        nameLabel.font = [UIFont fontWithName:@"Arial" size:15.0f];
+        [cell addSubview:nameLabel];
+    }
+
+    TwitterBean  * bean = [list objectAtIndex:indexPath.row];
+    if(bean){
+        nameLabel.text =bean.content;
+        CGSize size=[bean.content sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:16] forKey:NSFontAttributeName]];
         CGFloat width = [UIScreen mainScreen].applicationFrame.size.width-50;
         CGFloat line = size.width/width;
         line = [self clcLine:line];
         CGFloat height =size.height*(line+1);
-        cell.textLabel.frame=CGRectMake(8, 8, self.view.frame.size.width-20, height+44);
+        nameLabel.frame=CGRectMake(8, 8, self.view.frame.size.width-20, height);
+        if(bean.image){
+            imageV.frame=CGRectMake(8, height+10, self.view.frame.size.width-20, 150);
+            imageV.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",domain,bean.image]]]];
+            imageV.hidden=NO;
+        }else{
+            imageV.hidden=YES;
+        }
         
     }
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString  * content = [list objectAtIndex:indexPath.row];
-    if(content){
-        CGSize size=[content sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:16] forKey:NSFontAttributeName]];
+   TwitterBean  * bean = [list objectAtIndex:indexPath.row];
+    if(bean){
+        CGSize size=[bean.content sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:16] forKey:NSFontAttributeName]];
         CGFloat width = [UIScreen mainScreen].applicationFrame.size.width-50;
         CGFloat line = size.width/width;
         line = [self clcLine:line];
         CGFloat height =size.height*(line+1);
-        
-        return height+44;
+        if(bean.image){
+            return height+170;
+        }
+        return height;
     }
     return 44;
 }

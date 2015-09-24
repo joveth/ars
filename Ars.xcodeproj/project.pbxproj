@@ -17,6 +17,9 @@
 		F902B4251BB398B800F2DF94 /* 272.html in Resources */ = {isa = PBXBuildFile; fileRef = F902B4241BB398B800F2DF94 /* 272.html */; settings = {ASSET_TAGS = (); }; };
 		F902B4281BB398CF00F2DF94 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F902B4271BB398CF00F2DF94 /* WebViewController.m */; settings = {ASSET_TAGS = (); }; };
 		F902B42B1BB3A6E200F2DF94 /* TwitterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F902B42A1BB3A6E200F2DF94 /* TwitterViewController.m */; settings = {ASSET_TAGS = (); }; };
+		F902B42E1BB3E20300F2DF94 /* TwitterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = F902B42D1BB3E20300F2DF94 /* TwitterBean.m */; settings = {ASSET_TAGS = (); }; };
+		F902B4311BB3F27400F2DF94 /* FacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F902B4301BB3F27400F2DF94 /* FacebookViewController.m */; settings = {ASSET_TAGS = (); }; };
+		F902B4341BB3FD2C00F2DF94 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F902B4331BB3FD2C00F2DF94 /* MessageViewController.m */; settings = {ASSET_TAGS = (); }; };
 		F92355021B7A05AC0099DBDE /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F92355011B7A05AC0099DBDE /* close@2x.png */; };
 		F957D6F71BB12BB7009AA5D3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F957D6F61BB12BB7009AA5D3 /* HomeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		F957D6FA1BB131F5009AA5D3 /* orzil.png in Resources */ = {isa = PBXBuildFile; fileRef = F957D6F91BB131F5009AA5D3 /* orzil.png */; settings = {ASSET_TAGS = (); }; };
@@ -107,6 +110,12 @@
 		F902B4271BB398CF00F2DF94 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		F902B4291BB3A6E200F2DF94 /* TwitterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterViewController.h; sourceTree = "<group>"; };
 		F902B42A1BB3A6E200F2DF94 /* TwitterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterViewController.m; sourceTree = "<group>"; };
+		F902B42C1BB3E20300F2DF94 /* TwitterBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterBean.h; sourceTree = "<group>"; };
+		F902B42D1BB3E20300F2DF94 /* TwitterBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterBean.m; sourceTree = "<group>"; };
+		F902B42F1BB3F27400F2DF94 /* FacebookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookViewController.h; sourceTree = "<group>"; };
+		F902B4301BB3F27400F2DF94 /* FacebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookViewController.m; sourceTree = "<group>"; };
+		F902B4321BB3FD2C00F2DF94 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		F902B4331BB3FD2C00F2DF94 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		F92355011B7A05AC0099DBDE /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		F957D6F51BB12BB7009AA5D3 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		F957D6F61BB12BB7009AA5D3 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -295,6 +304,10 @@
 				F902B4271BB398CF00F2DF94 /* WebViewController.m */,
 				F902B4291BB3A6E200F2DF94 /* TwitterViewController.h */,
 				F902B42A1BB3A6E200F2DF94 /* TwitterViewController.m */,
+				F902B42F1BB3F27400F2DF94 /* FacebookViewController.h */,
+				F902B4301BB3F27400F2DF94 /* FacebookViewController.m */,
+				F902B4321BB3FD2C00F2DF94 /* MessageViewController.h */,
+				F902B4331BB3FD2C00F2DF94 /* MessageViewController.m */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -440,6 +453,8 @@
 			children = (
 				F9FFDF351B72F2EA00B9AA82 /* TieBean.h */,
 				F9FFDF361B72F2EA00B9AA82 /* TieBean.m */,
+				F902B42C1BB3E20300F2DF94 /* TwitterBean.h */,
+				F902B42D1BB3E20300F2DF94 /* TwitterBean.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -617,15 +632,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F902B4311BB3F27400F2DF94 /* FacebookViewController.m in Sources */,
 				F9FCC1981BB2A90900B7F449 /* FileUtil.m in Sources */,
 				F9FCC1991BB2A90900B7F449 /* ImageCacher.m in Sources */,
 				F9D6BE4E1B7C8DC800411C9C /* UserController.m in Sources */,
 				F902B42B1BB3A6E200F2DF94 /* TwitterViewController.m in Sources */,
 				F9FFDF371B72F2EA00B9AA82 /* TieBean.m in Sources */,
+				F902B4341BB3FD2C00F2DF94 /* MessageViewController.m in Sources */,
 				F9FFDF021B72F01E00B9AA82 /* TFHppleElement.m in Sources */,
 				F9CF638E1B7C451A00170CFE /* ShareData.m in Sources */,
 				F9FCC19E1BB2A90900B7F449 /* PhotoViewController.m in Sources */,
 				F902B4201BB3906B00F2DF94 /* CartoonViewController.m in Sources */,
+				F902B42E1BB3E20300F2DF94 /* TwitterBean.m in Sources */,
 				F957D6F71BB12BB7009AA5D3 /* HomeViewController.m in Sources */,
 				F9FFDF031B72F01E00B9AA82 /* XPathQuery.m in Sources */,
 				F9FFDF011B72F01E00B9AA82 /* TFHpple.m in Sources */,
