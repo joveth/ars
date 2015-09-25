@@ -244,6 +244,8 @@
                 break;
             }
             case 7:{
+                BlogViewController *show = [[BlogViewController alloc] init];
+                [self.navigationController pushViewController:show animated:YES];
                 break;
             }
             case 8:{
@@ -255,6 +257,9 @@
                 break;
             }
             case 9:{
+                UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                UserController *show = (UserController*)[storyboard instantiateViewControllerWithIdentifier:@"aboutApp"];
+                [self.navigationController pushViewController:show animated:YES];
                 break;
             }
             case 10:{

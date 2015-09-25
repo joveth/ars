@@ -24,6 +24,7 @@
     [[UINavigationBar appearance] setBarTintColor:FlatRed];
     NSDictionary * dict=[NSDictionary dictionaryWithObject:FlatWhite forKey:NSForegroundColorAttributeName];
     [UINavigationBar appearance].titleTextAttributes=dict;
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     return YES;
 }
 

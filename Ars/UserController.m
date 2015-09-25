@@ -48,7 +48,7 @@
             [myLabel setText:[NSString stringWithFormat:@"软件声明"]];
             break;
         case 2:
-            [myLabel setText:[NSString stringWithFormat:@"给我留言"]];
+            [myLabel setText:[NSString stringWithFormat:@"应用标识"]];
             break;
         default:
             [myLabel setText:[NSString stringWithFormat:@" "]];
@@ -56,19 +56,6 @@
     }
     [myHeader addSubview:myLabel];
     return myHeader;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-    if(indexPath.section==3){
-        if([Common isEmptyString:_msgText.text]){
-            return;
-        }else{
-            [_msgText resignFirstResponder];
-            [self showSV];
-            [self sendMsg];
-        }
-    }
 }
 
 

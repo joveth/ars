@@ -14,6 +14,8 @@
 #import "TwitterViewController.h"
 #import "FacebookViewController.h"
 #import "MessageViewController.h"
+#import "UserController.h"
+#import "BlogViewController.h"
 @interface HomeViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @end

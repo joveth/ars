@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ars/utils/MyScrollView.m"
-            timestampString = "464751871.830282"
+            timestampString = "464840004.184711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "-imageClickWithTag:"
             landmarkType = "5">
          </BreakpointContent>

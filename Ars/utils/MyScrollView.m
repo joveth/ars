@@ -41,7 +41,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[self alloc] initWithFrame:CGRectMake(0, 0, MY_WIDTH, MY_HEIGHT)];
-        });
+    });
     
     return instance;
 }
@@ -63,7 +63,7 @@
         self.loadedImageArray = [[NSMutableArray alloc] init];
         self.imgTagDic = [[NSMutableDictionary alloc] init];
         self.photoArray = [[NSMutableArray alloc] init];
-
+        
         //初始化列的高度
         self.leftColumHeight = 3.0f;
         self.midColumHeight = 3.0f;
@@ -119,8 +119,8 @@
     //第一次加载图片
     if(_imageLoad.imagesArray){
         for(int i = 0; i < [_imageLoad.imagesArray count]; i++){
-        NSString *imageName = [_imageLoad.imagesArray objectAtIndex:i];
-        [self imageStartLoading:imageName];
+            NSString *imageName = [_imageLoad.imagesArray objectAtIndex:i];
+            [self imageStartLoading:imageName];
         }
     }
 }
@@ -191,41 +191,49 @@
     if([self.loadedImageDic objectForKey:imageName]){
         return;
     }
-    
-    //若图片还未加载则保存
-    [self.loadedImageDic setObject:imageView forKey:imageName];
-    [self.loadedImageArray addObject:imageView];
-    [_photoArray addObject:imageName];
-    
-    [self imageTagWithAction:imageView name:imageName];
-    
-    float width = imageView.frame.size.width;
-    float height = imageView.frame.size.height;
-    
-    //判断哪一列的高度最低
-    if(_leftColumHeight <= _midColumHeight && _leftColumHeight <= _rightColumHeight){
-        UIView *leftView = [self viewWithTag:100];
-        [leftView addSubview:imageView];
-        //重新设置坐标
-        [imageView setFrame:CGRectMake(2, _leftColumHeight, width, height)];
-        _leftColumHeight = _leftColumHeight + height + 3;
-        [leftView setFrame:CGRectMake(0, 0, MY_WIDTH/3, _leftColumHeight)];
-    }else{
-        if(_midColumHeight <= _rightColumHeight){
-            UIView *middleView = [self viewWithTag:101];
-            [middleView addSubview:imageView];
-
-            [imageView setFrame:CGRectMake(2, _midColumHeight, width, height)];
-            _midColumHeight = _midColumHeight + height + 3;
-            [middleView setFrame:CGRectMake(MY_WIDTH/3, 0, MY_WIDTH/3, _midColumHeight)];
+    @try {
+        //若图片还未加载则保存
+        [self.loadedImageDic setObject:imageView forKey:imageName];
+        [self.loadedImageArray addObject:imageView];
+        [_photoArray addObject:imageName];
+        
+        [self imageTagWithAction:imageView name:imageName];
+        
+        float width = imageView.frame.size.width;
+        float height = imageView.frame.size.height;
+        
+        //判断哪一列的高度最低
+        if(_leftColumHeight <= _midColumHeight && _leftColumHeight <= _rightColumHeight){
+            UIView *leftView = [self viewWithTag:100];
+            [leftView addSubview:imageView];
+            //重新设置坐标
+            [imageView setFrame:CGRectMake(2, _leftColumHeight, width, height)];
+            _leftColumHeight = _leftColumHeight + height + 3;
+            [leftView setFrame:CGRectMake(0, 0, MY_WIDTH/3, _leftColumHeight)];
         }else{
-            UIView *rightView = [self viewWithTag:102];
-            [rightView addSubview:imageView];
-
-            [imageView setFrame:CGRectMake(2, _rightColumHeight, width, height)];
-            _rightColumHeight = _rightColumHeight + height + 3;
-            [rightView setFrame:CGRectMake(2 * MY_WIDTH/3, 0, MY_WIDTH/3, _rightColumHeight)];
+            if(_midColumHeight <= _rightColumHeight){
+                UIView *middleView = [self viewWithTag:101];
+                [middleView addSubview:imageView];
+                
+                [imageView setFrame:CGRectMake(2, _midColumHeight, width, height)];
+                _midColumHeight = _midColumHeight + height + 3;
+                [middleView setFrame:CGRectMake(MY_WIDTH/3, 0, MY_WIDTH/3, _midColumHeight)];
+            }else{
+                UIView *rightView = [self viewWithTag:102];
+                [rightView addSubview:imageView];
+                
+                [imageView setFrame:CGRectMake(2, _rightColumHeight, width, height)];
+                _rightColumHeight = _rightColumHeight + height + 3;
+                [rightView setFrame:CGRectMake(2 * MY_WIDTH/3, 0, MY_WIDTH/3, _rightColumHeight)];
+            }
         }
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
     }
 }
 
@@ -249,20 +257,20 @@
 
 
 /*
-     //若三列中最短列距离底部高度超过30像素，则请求加载新的图片
+ //若三列中最短列距离底部高度超过30像素，则请求加载新的图片
  */
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     //可视检查
     //[self checkImageIsVisible];
-//    if((self.contentOffset.y + self.frame.size.height) - [self getTheShortColum] > 30){
-//        
-//        if(_aDelegaet){
-//            [_aDelegaet startMyLoading];
-//        }else{
-//            [self pullRefreshImages:self.page];
-//        }
-//        
-//    }
+    //    if((self.contentOffset.y + self.frame.size.height) - [self getTheShortColum] > 30){
+    //
+    //        if(_aDelegaet){
+    //            [_aDelegaet startMyLoading];
+    //        }else{
+    //            [self pullRefreshImages:self.page];
+    //        }
+    //
+    //    }
 }
 
 
