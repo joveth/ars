@@ -242,6 +242,8 @@
  将图片tag保存，以及为UIImageView添加事件响应
  */
 - (void)imageTagWithAction:(UIImageView *)imageView name:(NSString *)imageName{
+    @try {
+    
     //将要显示图片的tag保存
     imageView.tag = self.imgTag;
     [self.imgTagDic setObject:imageName forKey:[NSString stringWithFormat:@"%ld", (long)imageView.tag]];
@@ -253,6 +255,13 @@
     imageView.userInteractionEnabled = YES;
     [imageView addGestureRecognizer:tapRecognizer];
     [tapRecognizer release];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
 }
 
 
